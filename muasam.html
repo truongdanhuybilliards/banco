@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="Description" content="Enter your description here" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="muasam.css">
+  <title>TRƯƠNG ĐAN HUY - BILLIARDS - MUA SẮM</title>
+</head>
+<style>
+  h3 {
+    text-shadow: 2px 3px 12px rgb(41, 28, 28);
+  }
+
+  .card-text {
+    color: red;
+    font-weight: bold;
+  }
+
+  .bl {
+    color: black
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+  }
+
+  #search-container {
+    margin: 1em 0;
+  }
+
+  #search-container input {
+    background-color: transparent;
+    width: 40%;
+    border-bottom: 2px solid #110f29;
+    padding: 1em 0.3em;
+  }
+
+  #search-container input:focus {
+    border-bottom-color: #6759ff;
+  }
+
+  #search-container button {
+    padding: 1em 2em;
+    margin-left: 1em;
+    background-color: #6759ff;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-top: 0.5em;
+  }
+
+  .button-value {
+    border: 2px solid #6759ff;
+    padding: 1em 2.2em;
+    border-radius: 3em;
+    background-color: transparent;
+    color: #6759ff;
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: #6759ff;
+    color: #ffffff;
+  }
+
+  #products {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 1.5em;
+    padding: 2em 0;
+  }
+
+  .card {
+    background-color: #d9119a;
+    max-width: 18em;
+    margin-top: 1em;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 1em 2em 2.5em rgba(1, 2, 68, 0.08);
+  }
+
+  .image-container {
+    text-align: center;
+  }
+
+  img {
+    width: 200px;
+    ;
+    object-fit: contain;
+  }
+
+  .container {
+    color: #110f29;
+  }
+
+  .container h5 {
+    font-weight: 500;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  @media screen and (max-width: 720px) {
+    img {
+      max-width: 100%;
+      object-fit: contain;
+      height: 10em;
+    }
+
+    .card {
+      max-width: 10em;
+      margin-top: 1em;
+    }
+
+    #products {
+      grid-template-columns: auto auto;
+      grid-column-gap: 1em;
+    }
+  }
+
+  .filterDiv {
+    float: left;
+    color: black;
+    width: 300px;
+    height: 570px;
+    text-align: center;
+    margin: 5px;
+    display: none;
+    text-decoration: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  .container {
+    overflow: hidden;
+  }
+
+  /* Style the buttons */
+  .btn {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: red;
+    cursor: pointer;
+    color: white;
+  }
+
+  .btn:hover {
+    background-color: rgb(34, 240, 192);
+  }
+
+  .btn.active {
+    background-color: red;
+    color: white;
+  }
+</style>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-expand bg-dark">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <div id="myBtnContainer">
+          <button class="btn" onclick="filterSelection('all')">TẤT CẢ</button>
+          <button class="btn" onclick="filterSelection('cofury')">CƠ FURY</button>
+          <button class="btn" onclick="filterSelection('banbida')">BÀN BIDA</button>
+          <button class="btn" onclick="filterSelection('cohow')">CƠ HOW</button>
+          <button class="btn" onclick="filterSelection('corhino')">CƠ RHINO</button>
+          <button class="btn" onclick="filterSelection('coperi')">CƠ PERI</button>
+          <button class="btn" onclick="filterSelection('phukien')">PHỤ KIỆN</button>
+          <button class="btn" onclick="filterSelection('mezz')">CƠ MEZZ</button>
+          <button class="btn" onclick="filterSelection('phanhay')">PHÁ - NHẢY</button>
+        </div>
+        <li><a href="./thuctaptotnghiep.html"><span class="glyphicon glyphicon-log-in"></span> Về Trang Chủ</a></li>
+      </ul>
+    </div>
+    <ul class="navbar-nav">
+      <li>
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Giỏ hàng</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Sản phẩm bạn chọn sẽ xuất hiện ở đây</h4>
+              </div>
+              <div class="modal-body">
+                <table border="1" id="giohang"></table>
+                <script>
+                  function them(btn) {
+                    var row = btn.parentElement.parentElement.cloneNode(true);
+                    var btnXoa = row.getElementsByTagName("button")[0];
+                    btnXoa.innerText = "Xóa";
+                    btnXoa.setAttribute('onclick', 'xoa(this)');
+                    document.getElementById("giohang").appendChild(row);
+                  };
+                  function xoa(btn1) {
+                    var row = btn1.parentElement.parentElement;
+                    document.getElementById("giohang").removeChild(row);
+                  }
+                  {
+
+                  }
+                </script>
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <a href="./thanhtoan.html"><button type="button" class="btn btn-default" id="thanhtoan">Thanh Toán</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="filterDiv cofury">
+          <h3>Fury Tempest AE</h3>
+          <a href="./mua.html"><img src="./images/furyae.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>3.200.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cofury">
+          <h3>Fury CA-02</h3>
+          <a href="./mua1.html"><img src="./images/furyca1.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>4.500.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cofury">
+          <h3>Fury CL-03</h3>
+          <a href="./mua2.html"><img src="./images/furycl3.jpg" style="width: 295px; height: 300px;"></a>
+          <hr>
+          <h4>7.500.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="filterDiv banbida">
+          <h3>Bàn Bida Aplus | Athena</h3>
+          <a href="./banathena.html"><img src="./images/banbida1.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>48.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv banbida">
+          <h3>Bàn Bida Aplus | Carom 3C </h3>
+          <a href="./bancarom.html"><img src="./images/banbida2.jpg" style="width: 225px;"></a>
+          <hr>
+          <h4>169.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv banbida">
+          <h3>Bàn Bida Aplus | Libre</h3>
+          <a href="./banlibre.html"><img src="./images/banbida3.jpg" style="width: 225px;"></a>
+          <hr>
+          <h4>41.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv banbida">
+          <h3>Bàn Bida Aplus | Premier</h3>
+          <a href="./banpremier.html"><img src="./images/banbida4.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>73.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv banbida">
+          <h3>Bàn Bida Aplus | S4 Plus</h3>
+          <a href="./bans4plus.html"><img src="./images/bans4plus.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>41.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="filterDiv banbida">
+          <h3>Bàn Bida Aplus | Series 6</h3>
+          <a href="./bansr6.html"><img src="./images/bansr6.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>65.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How PL-03</h3>
+          <a href="./howpl-03.html"><img src="./images/howpl-03.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>76.500.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How PLC-02</h3>
+          <a href="./howplc-02.html"><img src="./images/howplc-02.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>81.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How PS-01</h3>
+          <a href="./howps-01.html"><img src="./images/howps-01.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>29.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How M4-BC</h3>
+          <a href="./m4-bc.html"><img src="./images/howm4-bc.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>9.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How M4-EB</h3>
+          <a href="./m4-eb.html"><img src="./images/howm4-eb.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>9.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How M4-RG</h3>
+          <a href="./m4-rg.html"><img src="./images/m4-rg.png" style="width: 300px;"></a>
+          <hr>
+          <h4>9.500.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How M6-BC</h3>
+          <a href="m6-bc.html"><img src="./images/howm6-bc.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>9.800.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How M6-EB</h3>
+          <a href="./m6-eb.html"><img src="./images/howm6-eb.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>9.800.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv cohow">
+          <h3>Cơ How M6-PH</h3>
+          <a href="./m6-ph.html"><img src="./images/howm6-ph.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>9.800.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="filterDiv corhino">
+          <h3>Cơ Rhino | Ngọn Full Carbon</h3>
+          <a href="./co"><img src="./images/rhino1.jpg" style="width: 300px;"></a>
+          <hr>
+          <h4>5.500.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv corhino">
+          <h3>Cơ Rhino RC23 | Ngọn Full Carbon</h3>
+          <img src="./images/rhino2.jpg" style="width: 300px;">
+          <hr>
+          <h4>6.000.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="filterDiv corhino">
+          <h3>Cơ Rhino Carbon - Combo 2 ngọn</h3>
+          <img src="./images/rhino3.jpg" style="width: 300px;">
+          <hr>
+          <h4>5.500.000đ</h4>
+          <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+        </div>
+      </div>
+      <!--ĐÁ XAY-->
+      <div class="row">
+        <div class="col-4">
+          <div class="filterDiv coperi">
+            <h3>Cơ Peri EXA-07</h3>
+            <a href="./periexa-07.html"><img src="./images/periexa-07.jpg" style="width: 300px;"></a>
+            <hr>
+            <h4>7.800.000đ</h4>
+            <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="filterDiv coperi">
+            <h3>Cơ Peri P-03</h3>
+            <a href="./perip-b03.html"><img src="./images/perip-b03.jpg" style="width: 300PX;"></a>
+            <hr>
+            <h4>19.000.000đ</h4>
+            <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="filterDiv coperi">
+            <h3>Cơ Peri P-D04</h3>
+            <a href="./perip-d04.html"><img src="./images/perip-d04.jpg" style="width: 300px;"></a>
+            <hr>
+            <h4>6.600.000đ</h4>
+            <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="filterDiv coperi">
+            <h3>Cơ Peri P-LA01</h3>
+            <a href="./perip-la01.html"><img src="./images/perip-la01.jpg" style="width: 300px;"></a>
+            <hr>
+            <h4>27.000.000đ</h4>
+            <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="filterDiv coperi">
+            <h3>Cơ Peri P-LA02</h3>
+            <a href="./perip-la02.html"><img src="./images/perip-la02.jpg" style="width: 300px;"></a>
+            <hr>
+            <h4>26.000.000đ</h4>
+            <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="filterDiv coperi">
+            <h3>Cơ Peri P-TE01</h3>
+            <a href="./perip-te01.html"><img src="./images/perip-te01.jpg" style="width: 300px;"></a>
+            <hr>
+            <h4>32.000.000đ</h4>
+            <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+          </div>
+        </div>
+        <!--yaourt-->
+        <div class="row">
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bao Cơ | Peri Aurora (Gray)</h3>
+              <a href=""><img class="mt-5" src="./images/baoco1.jpg" style="width: 300px;"></a>
+              <hr>
+              <h4>5.000.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bao Cơ | Peri Aurora (Silver)</h3>
+              <img src="./images/baoco2.jpg" style="width: 300px;">
+              <hr>
+              <h4>5.000.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bao cơ | Peri Case Black Diamond (3x4)</h3>
+              <img src="./images/baoco3.jpg" style="width: 300px;">
+              <hr>
+              <h4>5.000.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bi Aramith | Black (Limited)</h3>
+              <img src="./images/bi1.jpg" style="width: 300px;">
+              <hr>
+              <h4>8.500.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bi Dynaspheres | Palladium</h3>
+              <img src="./images/bi2.jpg" style="width: 300px;">
+              <hr>
+              <h4>7.000.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bi Dynaspheres | Rhodium</h3>
+              <img src="./images/bi3.jpg" style="width: 300px;">
+              <hr>
+              <h4>5.500.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Bi Dynaspheres | Tungsten</h3>
+              <img class="mt-5" src="./images/bi4.jpg" style="width: 300px;">
+              <hr>
+              <h4>4.000.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Lơ TAOM bôi đầu cơ (4 màu)</h3>
+              <img src="./images/lo1.jpg" style="width: 300px;">
+              <hr>
+              <h4>590.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phukien">
+              <h3>Nối Carbon - Aplus Extension</h3>
+              <img src="./images/noi1.jpg" style="width: 300px;">
+              <hr>
+              <h4>1.200.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="filterDiv mezz">
+              <h3>Mezz Cues | ASTR-231</h3>
+              <img src="./images/mezz1.png" style="width: 300px;">
+              <hr>
+              <h4>20.960.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv mezz">
+              <h3>Mezz Cues | ASTR-235</h3>
+              <img src="./images/mezz2.png" style="width: 300px;">
+              <hr>
+              <h4>34.470.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv mezz">
+              <h3>Mezz Cues | CP-21B</h3>
+              <img src="./images/mezz3.png" style="width: 300px;">
+              <hr>
+              <h4>17.950.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv mezz">
+              <h3>Mezz Cues | CP21-CM</h3>
+              <img src="./images/mezz4.png" style="width: 300px;">
+              <hr>
+              <h4>17.950.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="filterDiv phanhay">
+              <h3>Cynergy Propel | Ghost Edition</h3>
+              <img src="./images/rubyred.png" style="width: 300px;">
+              <hr>
+              <h4>13.700.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phanhay">
+              <h3>Cynergy Propel | Galaxy Gray</h3>
+              <img src="./images/galaxygray.png" style="width: 300px;">
+              <hr>
+              <h4>13.700.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phanhay">
+              <h3>Phá Mezz Kai | Power Break Kai</h3>
+              <img src="./images/power.jpg" style="width: 300px;">
+              <hr>
+              <h4>13.000.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="filterDiv phanhay">
+              <h3>AVID Surge Break Cue Black/Gold</h3>
+              <img src="./images/avid.jpg" style="width: 300px;">
+              <hr>
+              <h4>9.600.000đ</h4>
+              <p><button class="btn" onclick="them(this)">Thêm Vào Giỏ Hàng</button></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        filterSelection("all")
+        function filterSelection(c) {
+          var x, i;
+          x = document.getElementsByClassName("filterDiv");
+          if (c == "all") c = "";
+          for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+          }
+        }
+
+        function w3AddClass(element, name) {
+          var i, arr1, arr2;
+          arr1 = element.className.split(" ");
+          arr2 = name.split(" ");
+          for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+          }
+        }
+
+        function w3RemoveClass(element, name) {
+          var i, arr1, arr2;
+          arr1 = element.className.split(" ");
+          arr2 = name.split(" ");
+          for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+              arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+          }
+          element.className = arr1.join(" ");
+        }
+
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+          });
+        }
+      </script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

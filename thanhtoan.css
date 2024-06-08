@@ -1,0 +1,29 @@
+.navbar a:hover {
+    color: red;
+    background-color: yellow;
+}
+
+.card {
+    text-align: center;
+}
+
+.card p {
+    color: red;
+}
+
+.col-4 {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+h2 {
+    color: red;
+}
+.xanh{
+    color: blue;
+}
+a{
+    text-decoration: none;
+}

@@ -1,0 +1,55 @@
+.navbar a:hover {
+    color: red;
+    background-color: yellow;
+}
+
+.card {
+    text-align: center;
+}
+
+.card p {
+    color: red;
+}
+
+.col-4 {
+    text-align: center;
+}
+
+i {
+    float: left;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h2 {
+    color: red;
+}
+
+.z-1 {
+    z-index: 21;
+}
+
+.absolute {
+    position: absolute !important;
+}
+.badge-inner.on-sale{
+    background-color: #ff2a2d;
+}
+.badge-circle .badge-inner {
+    border-radius: 999px;
+}
+.badge-inner{
+    color: #fff;
+    display: table-cell;
+    font-weight: bolder;
+    width: 50px;
+    height:50px;
+    text-align: center;
+    vertical-align: middle;
+}
+.form-group{
+    text-align: end;
+}

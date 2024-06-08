@@ -1,0 +1,20 @@
+.col-4{
+    text-align: center;
+}
+i{
+    float: left;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+h3{
+    color: red;
+}
+.card p{
+    color: red;
+}
+.navbar a:hover {
+    color: red;
+    background-color: yellow;
+}
